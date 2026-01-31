@@ -1,6 +1,7 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.functions import col, Session
+from snowflake.snowpark.functions import col
+from snowflake.snowpark import Session
 
 connection_parameters = {
     "account": st.secrets["connections"]["snowflake"]["account"],
