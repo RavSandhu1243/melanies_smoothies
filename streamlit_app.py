@@ -10,19 +10,19 @@ st.write("Choose the fruits you want in your custom Smoothie!")
 name_on_order = st.text_input("Name on Smoothie:")
 st.write("The name on your smoothie will be:", name_on_order)
 
-# --- Snowpark session setup ---
-connection_parameters = {
-    "account": st.secrets["connections"]["snowflake"]["account"],
-    "user": st.secrets["connections"]["snowflake"]["user"],
-    "role": st.secrets["connections"]["snowflake"]["role"],
-    "warehouse": st.secrets["connections"]["snowflake"]["warehouse"],
-    "database": st.secrets["connections"]["snowflake"]["database"],
-    "schema": st.secrets["connections"]["snowflake"]["schema"],
+params = {
+    "account": "YVCYRQR-OKB08473",
+    "user": "RAVSANDHU",
+    "role": "SYSADMIN",
+    "warehouse": "COMPUTE_WH",
+    "database": "SMOOTHIES",
+    "schema": "PUBLIC",
     "authenticator": "oauth",
-    "token": st.secrets["connections"]["snowflake"]["token"],
+    "token": "PASTE_TOKEN_HERE"
 }
 
-session = Session.builder.configs(connection_parameters).create()
+session = Session.builder.configs(params).create()
+print(session.sql("SELECT CURRENT_USER(), CURRENT_ROLE()").collect())
 
 # --- Load fruit options ---
 fruit_df = session.table("fruit_options").select(col("FRUIT_NAME"))
