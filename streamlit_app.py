@@ -1,7 +1,19 @@
 # Import python packages
 import streamlit as st
+from snowflake.snowpark.functions import col, Session
 
-from snowflake.snowpark.functions import col
+connection_parameters = {
+    "account": st.secrets["connections"]["snowflake"]["account"],
+    "user": st.secrets["connections"]["snowflake"]["user"],
+    "role": st.secrets["connections"]["snowflake"]["role"],
+    "warehouse": st.secrets["connections"]["snowflake"]["warehouse"],
+    "database": st.secrets["connections"]["snowflake"]["database"],
+    "schema": st.secrets["connections"]["snowflake"]["schema"],
+    "authenticator": "oauth",
+    "token": st.secrets["connections"]["snowflake"]["token"],
+}
+
+session = Session.builder.configs(connection_parameters).create()
 
 # Write directly to the app
 st.title(f"Customize Your Smoothie!:cup_with_straw:")
